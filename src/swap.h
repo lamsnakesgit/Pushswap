@@ -14,7 +14,8 @@
 # define SWAP_H
 # include <unistd.h>
 # include <stdlib.h>
-# include "../libft/includes/libft.h"
+# include "../libft/libft.h"
+# include <fcntl.h>
 # define EMP 2222000000
 # define SA 1
 # define SB 2

@@ -57,7 +57,7 @@ int				validate(int ac, char **av)
 		{
 			if (fn && !j)
 				++j;
-			if (!valsp(av[i], &fn))
+			if (!valsp(av[i] + j, &fn))
 				ft_err();
 			if ((j >= 10) || (j >= 9 && !fn))
 				check_dig(av[i], fn);

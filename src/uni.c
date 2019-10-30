@@ -18,7 +18,9 @@ long			valsp(char *av, long *sg)
 		*sg = -1;
 	if ((*av == ' ' && (*(av + 1) == ' ' || !*(av + 1))) \
 	|| ((*av == '-' || *av == '+') && !ft_isdigit(*(av + 1))) \
-	|| (*av != ' ' && *av != '-' && *av != '+' && !ft_isdigit(*av)))
+	|| (*av != ' ' && *av != '-' && *av != '+' && !ft_isdigit(*av)) \
+	|| (ft_isdigit(*av) && !ft_isdigit(*(av + 1)) && *(av + 1) != ' ' \
+	&& *(av + 1)))
 		return (0);
 	return (1);
 }

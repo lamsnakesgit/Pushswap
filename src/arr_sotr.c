@@ -12,7 +12,6 @@
 
 #include "swap.h"
 
-
 long int	swap_i(long int *l, long int *b)
 {
 	long int t;

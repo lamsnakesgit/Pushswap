@@ -113,6 +113,7 @@ int			exec(t_inst *com, t_mas srt)
 		push_swap(com, fi);
 		com = com->next;
 	}
+	print_arr_s(fi, "KKK");//
 	if ((is = issorted(fi->ast, fi->asz)) != LOL)
 		write(1, "KO\n", 3);
 	else if ((is = issorted(fi->ast, fi->asz)) != LOL && fi->bsz > 0)

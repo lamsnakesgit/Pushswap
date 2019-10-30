@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "swap.h"
-
+#include <stdio.h>
 void		print(long *arr, long size, char *stn)
 {
 	int i;

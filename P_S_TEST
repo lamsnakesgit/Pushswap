@@ -1,0 +1,6 @@
+mi-o3% ./push_swap -2 -3 3
+sa
+mi-o3% ./push_swap -2 -3- 3
+sa
+mi-o3% ./push_swap -2 -3-4 3
+sa
