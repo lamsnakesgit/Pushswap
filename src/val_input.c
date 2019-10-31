@@ -55,8 +55,11 @@ int				validate(int ac, char **av)
 			ft_err();
 		while (av[i][++j])
 		{
+		//	if (!ft_isdigit()av[i][j])
 			if (fn && !j)
 				++j;
+			if (!ft_isdigit(av[i][j]))//++-
+				ft_err();
 			if (!valsp(av[i] + j, &fn))
 				ft_err();
 			if ((j >= 10) || (j >= 9 && !fn))

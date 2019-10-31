@@ -105,10 +105,10 @@ void		rstack(t_arr *fi, long n)
 	long mar;
 	long min;
 
-	if (n > fi->ast[asz - 1])
+	//if (n > fi->ast[fi->asz - 1])
 
-	else if (issorted(fi->ast, fi->asz) == LOL)
-		return ;
+	//else if (issorted(fi->ast, fi->asz) == LOL)
+	//	return ;
 	s = isort(fi);
 	if (s != EMP && s != LOL)
 	{
@@ -146,7 +146,7 @@ int			wtf(long *src, long rg)
 	if (fi->asz == 3)
 		ch_a(fi->ast, fi->asz);
 	if (j != LOL)
-		rstack(fi);
+		rstack(fi, -40444444);
 	insort(fi);
 	freec(fi);
 	return (1);

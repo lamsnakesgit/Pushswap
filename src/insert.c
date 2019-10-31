@@ -36,18 +36,18 @@ long		still_check(t_arr *fi, long i, long j)
 {
 	if (i == fi->asz)
 	{
-		rstack(fi);//
+		rstack(fi, EMP);//
 		print_arr_s(fi, "afrs");
 		push_b_r(&fi->bst, &fi->ast, &fi->bsz, &fi->asz);
 		print_com(PA);
 		if ((j = isort(fi)) != EMP && j != LOL)
-			rstack(fi);
+			rstack(fi, EMP);
 		return (0);
 	}
 	--i;
 	if (i >= fi->asz / 2)
 	{
-		rstack(fi);//
+		rstack(fi, EMP);//
 		if (isort(fi) != LOL)
 			revrot(&fi->ast, fi->asz);
 		print_com(RRA);
@@ -56,7 +56,7 @@ long		still_check(t_arr *fi, long i, long j)
 	else if (i < fi->asz / 2)//
 	{
 		if (isort(fi) == LOL)
-			rstack(fi);
+			rstack(fi, EMP);
 		rot_a(&fi->ast, fi->asz, 1);
 		return (0);
 	}
@@ -74,7 +74,7 @@ long		i_check(t_arr *fi, long i)//7 9 1 11 4 5 6 3 2 8 10
 		if (fi->bsz && fi->bst[0] > fi->ast[fi->asz - 1])
 			return (-0);
 		if (isort(fi) != EMP && isort(fi) != LOL)
-			rstack(fi);
+			rstack(fi, EMP);
 		return (0);
 	}
 	return (1);
@@ -104,7 +104,7 @@ void		insort(t_arr *fi)
 		if (!fi->bsz)// && isort(fi) != LOL && isort(fi) != EMP)
 		{
 			if (isort(fi) == LOL)
-				rstack(fi);
+				rstack(fi, EMP);
 			print_arr_s(fi, "rs");
 			if (isort(fi) != LOL && isort(fi) != EMP)
 				break ;
@@ -114,7 +114,7 @@ void		insort(t_arr *fi)
 		{
 			if (isort(fi) == LOL)
 			{
-				rstack(fi);
+				rstack(fi, EMP);
 			}
 		}
 	}

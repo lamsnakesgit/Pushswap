@@ -90,7 +90,7 @@ long			gg(long int *src, long int *dop, long int ac, long int *bs);
 void			print_arr_s(t_arr *fi, char *stn);
 t_co			*scom(t_co *co, int ac);
 t_arr			*init_date(long *src, long ac);
-void			rstack(t_arr *fi);
+void			rstack(t_arr *fi, long n);
 long int		isort(t_arr *fi);
 int				triad(long *arr, long size);
 int				check_i(int ac, char **av, int pc);
