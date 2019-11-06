@@ -30,7 +30,7 @@ void		print_arr_s(t_arr *f, char *stn)
 
 	i = -1;
 	sz = f->asz > f->bsz ? f->asz : f->bsz;
-	while (++i < sz)
+/*	while (++i < sz)
 	{
 		if (i >= f->bsz)
 			printf("%s/A=%11li B=%11s |%11d\n", stn, f->ast[i], "", sz);
@@ -38,7 +38,26 @@ void		print_arr_s(t_arr *f, char *stn)
 			printf("%s/A=%11s B=%11li |%11d\n", stn, "", f->bst[i], sz);
 		else
 			printf("%s/A=%11li B=%11li |%11d\n", stn, f->ast[i], f->bst[i], sz);
+	}*/printf("%s %d \n/A%1s", stn, sz, "");
+	while (++i < sz)
+	{
+		if (i >= f->bsz)
+			printf("=%11li ", f->ast[i]);
+		else if (i >= f->asz)
+			printf("");//"%s/A=%11s ", stn, "");
+		else
+			printf("=%11li ", f->ast[i]);
 	}
+	i = -1;printf("|\nB/%1s", "");
+	while (++i < sz)
+	{
+		if (i >= f->bsz)
+			printf("=%11s |%11d", "", sz);
+	//	else if (i >= f->asz)
+	//		printf("");//"%s/B=%11s |%11d", stn, "", sz);
+		else
+			printf("=%11li ", f->bst[i]);//printf("%s/B=%11li |%11d", stn, f->bst[i], sz);
+	}printf("|\n");
 }
 
 long int	sort_(long int rg, long int *src)
