@@ -6,7 +6,7 @@
 /*   By: ddratini <ddratini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 14:51:33 by ddratini          #+#    #+#             */
-/*   Updated: 2019/10/30 16:43:11 by ddratini         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:18:20 by ddratini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,11 @@ long			corr_inst(t_inst *com);
 long			count_node(t_inst *com);
 void			free_lst(t_inst *com);
 t_inst			*com_fil(t_inst **com, long inst);
+void			revstack(t_arr *fi, long n);
+
+long			b_check(t_arr *fi);
+long			i_check(t_arr *fi, long i);
+long			find_p(t_arr *fi);
+long			check_place(t_arr *fi);
+
 #endif

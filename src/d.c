@@ -85,7 +85,6 @@ void		revstack(t_arr *fi, long n)
 	long sv;
 	long mar;
 	long ru;
-
 	//if (issorted(fi->ast, fi->asz) == LOL)//dessoert
 	//s = desort?
 	ru = 0;
@@ -155,9 +154,9 @@ int			wtf(long *src, long rg)
 	//print_arr_s(fi, "BFP3");
 	if (fi->asz == 3)
 		ch_a(fi->ast, fi->asz);
-	if (j != LOL)
+/*	if (j != LOL)
 		rstack(fi, -40444444);
-	insort(fi);
+*/	insort(fi);
 	freec(fi);
 	return (1);
 }

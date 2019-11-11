@@ -89,12 +89,9 @@ long		check_place(t_arr *fi)
 	j = 0;
 	b_check(fi);
 	i = find_p(fi);
-/*	while (i < fi->asz && fi->bst[0] > fi->ast[i])
-		++i;
-*/	long t; t = i_check(fi, i );
-	if (t == 1)	//	if (i_check(fi, i) != 0 || i_check(fi, i ) != -0);
+	long t; t = i_check(fi, i );
+	if (t == 1)
 		still_check(fi, i , j);
-	//i_check(fi, i);
 	/*/return (still_check(fi, i, j));*/return (1 ? 1 : 1);
 }
 /*
