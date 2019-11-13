@@ -125,7 +125,7 @@ int				exec(t_inst *com, t_mas srt);
 long			corr_inst(t_inst *com);
 long			count_node(t_inst *com);
 void			free_lst(t_inst *com);
-t_inst			*com_fil(t_inst **com, long inst);
+t_inst			*com_fil(t_inst **com, long inst, long n);
 void			revstack(t_arr *fi, long n);
 
 long			b_check(t_arr *fi);
