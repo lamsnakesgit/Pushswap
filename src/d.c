@@ -156,7 +156,8 @@ int			wtf(long *src, long rg)
 		ch_a(fi->ast, fi->asz);
 /*	if (j != LOL)
 		rstack(fi, -40444444);
-*/	insort(fi);
+*/	//insort(fi);
+	insort_(fi);
 	freec(fi);
 	return (1);
 }

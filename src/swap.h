@@ -51,6 +51,7 @@ typedef	struct	s_arr
 typedef	struct	s_inst
 {
 	long			co;
+	long 			n;
 	struct s_inst	*next;
 }				t_inst;
 
@@ -132,5 +133,7 @@ long			b_check(t_arr *fi);
 long			i_check(t_arr *fi, long i);
 long			find_p(t_arr *fi);
 long			check_place(t_arr *fi);
+
+void		insort_(t_arr *fi);
 
 #endif
