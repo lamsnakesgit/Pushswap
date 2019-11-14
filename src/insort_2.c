@@ -48,11 +48,11 @@ void		count_iter(t_arr *fi)
  * * *1 create first node and each time check len of list to cmpr w minimum also save the n in node's
  * * **2
 */
-t_inst      *count_till_top(t_arr *fi, t_inst **com)
+/*t_inst      *count_till_top(t_arr *fi, t_inst **com)
 {
-}
+}*/
 /*while (--i - 1 > 0)//(++cnt < i - 1)//!?*/
-t_inst		*up_stack(t_arr *fi, t_inst **com, long i)
+t_inst		*up_stack(t_arr *fi, t_inst *com, long i)
 {
 	long    cnt;
     t_inst  *min;
@@ -61,14 +61,14 @@ t_inst		*up_stack(t_arr *fi, t_inst **com, long i)
 	if (i <= fi->bsz / 2)//(fi->bst[i]);
 	{
 		while (++cnt < i)
-			com_fil(com, RB, fi->bst[i]);
+			com_fil(&com, RB, fi->bst[i]);
 	}
 	else
 	{
 		while (fi->bsz - ++i > 0)// - 1 > 0)//(--i - 1 > 0)//(++cnt < i - 1)//!?
-			com_fil(com, RRB, fi->bst[i]);
+			com_fil(&com, RRB, fi->bst[i]);
 	}
-	return (*com);
+	return (com);//(*com);
 }
 long 		get_imaxmin(long *arr, long size, long f)
 {
@@ -98,88 +98,70 @@ long 		get_imaxmin(long *arr, long size, long f)
 	}
 	return (item);
 }
-long		coma(t_arr *fi, t_inst **com, long i, long f)
+long		coma(t_arr *fi, t_inst *com, long i, long f)
 {
 	long k;
 
 	k = 0;
 	if (f == 1)//(mini > maxi)//(maxi > mini)
 	{
-		while (fi->bst[i] < fi->ast[k] && ++k);
-		while (k < fi->asz)//(fi->bst[i] > fi->ast[k])
-		{
-			//	if (fi->bst[i] < fi->ast[k])
-			//		++k;
-			if (fi->bst[i] > fi->ast[k])
-				++k;
-		}
+		while (k < fi->asz && fi->bst[i] < fi->ast[k])// && ++k)
+			++k;//for round s
+		while (k < fi->asz && fi->bst[i] > fi->ast[k])//if (fi->bst[i] > fi->ast[k])
+				++k;//till round circel circle
 	}
 	else
 	{
-		while (k < fi->asz)
-		{
-			if (fi->bst[i] > fi->ast[k])
-				++k;
-		}
+		while (k < fi->asz && fi->bst[i] > fi->ast[k])
+			++k;
 	}
 	return (k);
 }
-t_inst      *get_toplace(t_arr *fi, t_inst **com, long i)
+t_inst      *get_toplace(t_arr *fi, t_inst *com, long i)
 {
 	long j;//stack A
 	long maxi;
 	long mini;
 	long k;
 
-//	maxi = search_minmax(fi->ast, fi->asz, 1);//while ()
-//	mini = search_minmax(fi->bst, fi->bsz, -1);
 	maxi = get_imaxmin(fi->ast, fi->asz, 1);
 	mini = get_imaxmin(fi->ast, fi->asz, -1);
 	k = 0;
 	if (mini > maxi)//(maxi > mini)
-	{
-		while (fi->bst[i] < fi->ast[k] && ++k);
-		while (k < fi->asz)//(fi->bst[i] > fi->ast[k])
-		{
-		//	if (fi->bst[i] < fi->ast[k])
-		//		++k;
-			if (fi->bst[i] > fi->ast[k])
-				++k;
-		}
-	}
+		k = coma(fi, com, i, 1);
+	else//prob rev ert
+		k = coma(fi, com, i, 0-1);
+	if (k <= fi->asz / 2)
+		while (++k <= i)
+			com_fil(&com, RA, fi->bst[i]);
 	else
-	{//prob rev ert
-		while (++k < fi->asz && fi->bst[i] > fi->ast[k])
-		{
-//			if (fi->bst[i] > fi->ast[k])
-//				++k;
-		}
-	}
+		while (--k >= i)
+			com_fil(&com, RRA, fi->bst[i]);
 	return (0);//
 }
 t_inst		*compute_path(t_arr *fi, t_inst *com)//ins
 {
 	t_inst	p;
-    long	i;
-	t_inst  *min;
+	long	i;
+	t_inst	*min;
 	long	m;
 
-    i = 0;
-    i = -1;
-    while (++i < fi->bsz)//collecting the path-ways and saving the minimum
-    {
-    	com = 0;
+	i = 0;
+	i = -1;//exah each time save comline s//then free
+	while (++i < fi->bsz)//collecting the path-ways and saving the minimum
+	{
+		com = 0;//saving minimalss
     	com = com_fil(&com, 0, LOL);
     	if (i == 0)//1)
 		{
     		min = com;
     		m = com->n;
 		}
-		get_toplace(fi, &com, i);
-		up_stack(fi, &com, i);//filling the node with operations till up_Bstack
+		get_toplace(fi, com, i);//init co here///last- PA
+		up_stack(fi, com, i);//filling the node with operations till up_Bstack
     	free_lst(com);
 	}
-	return (com);
+	return (min);
 }
 
 void		insort_(t_arr *fi)
@@ -187,14 +169,14 @@ void		insort_(t_arr *fi)
 	t_inst *com;
 	t_inst *path;
 
-	//com = 0;
+	com = 0;
 	//com = com_fil(&com, 0, LOL);
 	while (fi->bsz)
 	{
 		print_arr_s(fi, "NEW");
 		path = compute_path(fi, com);//calc
 		//exec(com, fi);//insertung//rotcir
-		free_lst(com);//&
+//		free_lst(path);//com);//&
 		break ;
 	}
 }
