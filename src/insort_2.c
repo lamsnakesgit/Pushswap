@@ -133,10 +133,10 @@ t_inst      *get_toplace(t_arr *fi, t_inst *com, long i)
 		k = coma(fi, com, i, 0-1);
 	if (k <= fi->asz / 2)
 		while (++k <= i)
-			com_fil(&com, RA, fi->bst[i]);
+			//com_fil(&com, RA, fi->bst[i]);
 	else
 		while (--k >= i)
-			com_fil(&com, RRA, fi->bst[i]);
+			//com_fil(&com, RRA, fi->bst[i]);
 	return (0);//
 }
 t_inst		*compute_path(t_arr *fi, t_inst *com)//ins
@@ -163,12 +163,37 @@ t_inst		*compute_path(t_arr *fi, t_inst *com)//ins
 	}
 	return (min);
 }
+t_co		*com_save(t_co **com, long ins)
+{
+	t_co *h;
+	t_co *tmp;
 
+	if (!*com)
+	{
+		(*com) = (t_co *)malloc(sizeof(t_co));
+		(*com)->op = ins;
+		(*com)->next = 0;
+		h = (*com);
+	}
+	else
+	{
+		h = *com;
+		tmp = *com;
+		while (tmp)
+			tmp = tmp->next;
+		tmp = (t_co *)malloc(sizeof(t_co));
+		tmp->op = ins;
+		tmp->next = 0;
+	}
+	return (h);
+}
 void		insort_(t_arr *fi)
 {
 	t_inst *com;
 	t_inst *path;
+	t_co	*ins;
 
+	ins = 0;
 	com = 0;
 	//com = com_fil(&com, 0, LOL);
 	while (fi->bsz)
