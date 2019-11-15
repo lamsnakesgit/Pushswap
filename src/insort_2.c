@@ -61,14 +61,14 @@ long		up_stack(t_arr *fi, t_op *ins, long i)
 	if (i <= fi->bsz / 2)//(fi->bst[i]);
 	{
 		ins->bsp = i;
-		ins->bdir = RA;
+		ins->bdir = RB;
 	//	while (++cnt < i)
 			//com_fil(ins, RB, fi->bst[i]);
 	}
 	else
 	{
 		ins->bsp = fi->bsz - i;
-		ins->bdir = RRA;
+		ins->bdir = RRB;
 	//	while (fi->bsz - ++i > 0)// - 1 > 0)//(--i - 1 > 0)//(++cnt < i - 1)//!?
 			//com_fil(ins, RRB, fi->bst[i]);
 	}
@@ -97,8 +97,9 @@ long 		get_imaxmin(long *arr, long size, long f)
 		while (++i < size)
 		{
 			if (arr[i] < mnmx)
-				item = i;
+				mnmx = i;
 		}
+		return (mnmx);
 	}
 	return (item);
 }
@@ -125,7 +126,7 @@ long		coma_isearch(t_arr *fi, long i, long f, long mx)//lokinf atually for a pla
 		while (mid < fi->asz && fi->bst[i] < fi->ast[mid])//if round-> max in mid
 			++mid;//if its biggest -> its placi is in mid m->maxin
 		if (k == fi->asz)
-			return (mx);///-2);
+			return (0);//mx);///-2);
 	}
 	else
 	{
@@ -248,14 +249,14 @@ void		insort_(t_arr *fi)
 	com = 0;
 	while (fi->bsz)
 	{
-	//	print_arr_s(fi, "NEW");
+		print_arr_s(fi, "NEW");
 		path = compute_path(fi, ins);//calc
 		execute(fi, path, -1);
 		//exec(com, fi);//insertung//rotcir
 //		free_lst(path);//com);//&
 	//	break ;
 	}
-	rstack(fi,)
+	rstack(fi, EMP);
 }
 /*t_co		*com_save(t_co **com, long ins)
 {
