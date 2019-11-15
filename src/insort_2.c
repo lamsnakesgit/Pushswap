@@ -52,7 +52,7 @@ void		count_iter(t_arr *fi)
 {
 }*/
 /*while (--i - 1 > 0)//(++cnt < i - 1)//!?*/
-t_inst		*up_stack(t_arr *fi, t_inst *com, long i)
+long		up_stack(t_arr *fi, t_op *ins, long i)
 {
 	long    cnt;
     t_inst  *min;
@@ -60,15 +60,19 @@ t_inst		*up_stack(t_arr *fi, t_inst *com, long i)
 	cnt = -1;
 	if (i <= fi->bsz / 2)//(fi->bst[i]);
 	{
-		while (++cnt < i)
-			com_fil(&com, RB, fi->bst[i]);
+		ins->bsp = i;
+		ins->bdir = RA;
+	//	while (++cnt < i)
+			//com_fil(ins, RB, fi->bst[i]);
 	}
 	else
 	{
-		while (fi->bsz - ++i > 0)// - 1 > 0)//(--i - 1 > 0)//(++cnt < i - 1)//!?
-			com_fil(&com, RRB, fi->bst[i]);
+		ins->bsp = fi->bsz - i;
+		ins->bdir = RRA;
+	//	while (fi->bsz - ++i > 0)// - 1 > 0)//(--i - 1 > 0)//(++cnt < i - 1)//!?
+			//com_fil(ins, RRB, fi->bst[i]);
 	}
-	return (com);//(*com);
+	return (ins->bsp);//com);//(*com);
 }
 long 		get_imaxmin(long *arr, long size, long f)
 {
@@ -130,15 +134,15 @@ long		coma_isearch(t_arr *fi, long i, long f, long mx)//lokinf atually for a pla
 	}
 	return (k);
 }
-void		save_op(t_op *ins, t_arr *fi,  long ink)
+/*void		save_op(t_op *ins, t_arr *fi,  long ink)
 {
 	if (ink <= fi->asz / 2)
 	{
 		if (ink < 0)
 			ins->asp = maxi
 	}
-}
-t_inst      *
+}*/
+//t_inst      *
 long		get_toplace(t_arr *fi, long i, t_op *ins)//find place & count operaa
 {
 	long j;//stack A
@@ -163,29 +167,92 @@ long		get_toplace(t_arr *fi, long i, t_op *ins)//find place & count operaa
 	}
 	return (ins->asp);//
 }
-t_op		*compute_path(t_arr *fi, t_op ins)//, t_op *com)//ins
+t_op		/**/compute_path(t_arr *fi, t_op ins)//, t_op *com)//ins
 {
-	t_op			p;
+//	t_op			p;
 	long			i;
 	unsigned long	min;//*min;
-	long			m;
-	t_op			ins;
+	t_op			mins;//t_op			ins;
+	long 			aop;
+	long 			bop;
 
 	i = 0;//way home - lol
 	i = -1;//exah each time save comline s//then free
+	min = LOL + 1;
+//	mins = LOL + 1;
 	while (++i < fi->bsz)//collecting the path-ways and saving the minimum
 	{
 	//	com = 0;//saving minimalss
     	if (i == 0)//1)
 		{
-			min = 0;//com;
-			m = 0;//com->n;
+			mins = ins;//com;
+	//		min = 0;//com->n;
 		}//get top place returns theminimal movemnts in A for B-el //up_st ret min-move for B to-ptop
-		get_toplace(fi, i, &ins);//init co here///last- PA
-		up_stack(fi, &ins, i);//filling the node with operations till up_Bstack
+		aop = get_toplace(fi, i, &ins);//init co here///last- PA
+		bop = up_stack(fi, &ins, i);//filling the node with operations till up_Bstack
 	//	free_lst(ins);
+		if (aop + bop + 1 < min)//s)
+			mins = ins;//aop;
 	}
-	return (min);
+	return (ins);//min);
+}
+
+t_op		top_fil(t_op ins)
+{
+	ins.asp = -1;
+	ins.adir = -1;
+	ins.bdir = -1;
+	ins.bsp = -1;
+	ins.total = -1;
+	return (ins);
+}
+static void	execute(t_arr *fi, t_op ins, long i)
+{
+	i = -1;
+	if (ins.adir == RA)
+		while (++i < ins.asp)
+			rot_a(&fi->ast, fi->asz, 1);
+	i = -1;
+	if (ins.adir == RRA)
+		while (++i < ins.asp)
+		{
+			revrot(&fi->ast, fi->asz);//	rot_a(&fi->ast, fi->asz, 1)
+			print_com(RRA);
+
+		}
+	i = -1;
+	if (ins.bdir == RB)
+		while (++i < ins.bsp)
+			rot_a(&fi->bst, fi->bsz, 2);
+	i = -1;
+	if (ins.bdir == RRB)
+		while (++i < ins.bsp)
+		{
+			revrot(&fi->bst, fi->bsz);
+			print_com(RRB);
+		}
+	push_b_r(&fi->bst, &fi->ast, &fi->bsz, &fi->asz);
+	print_com(PA);
+}
+void		insort_(t_arr *fi)
+{
+	t_op	*com;
+//	t_inst	*path;
+/*	t_co*/
+	t_op	path;
+	t_op	ins;
+
+	ins = top_fil(ins);
+	com = 0;
+	while (fi->bsz)
+	{
+		print_arr_s(fi, "NEW");
+		path = compute_path(fi, ins);//calc
+		execute(fi, path, -1);
+		//exec(com, fi);//insertung//rotcir
+//		free_lst(path);//com);//&
+	//	break ;
+	}
 }
 /*t_co		*com_save(t_co **com, long ins)
 {
@@ -211,31 +278,3 @@ t_op		*compute_path(t_arr *fi, t_op ins)//, t_op *com)//ins
 	}
 	return (h);
 }*/
-t_op		top_fil(t_op ins)
-{
-	ins.asp = -1;
-	ins.adir = -1;
-	ins.bdir = -1;
-	ins.bsp = -1;
-	ins.total = -1;
-	return (ins);
-}
-void		insort_(t_arr *fi)
-{
-	t_op	*com;
-//	t_inst	*path;
-/*	t_co*/
-	t_op	path;
-	t_op	ins;
-
-	ins = top_fil(ins);
-	com = 0;
-	while (fi->bsz)
-	{
-		print_arr_s(fi, "NEW");
-		path = compute_path(fi, ins);//calc
-		//exec(com, fi);//insertung//rotcir
-//		free_lst(path);//com);//&
-		break ;
-	}
-}

@@ -145,4 +145,7 @@ long			check_place(t_arr *fi);
 
 void		insort_(t_arr *fi);
 
+//int				rot_a(long **arr, long size, long mas);
+
+
 #endif
