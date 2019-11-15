@@ -104,17 +104,24 @@ long 		get_imaxmin(long *arr, long size, long f)
  * 2
  * 3
  * */
-long		coma_isearch(t_arr *fi, long i, long f)//lokinf atually for a place
+long		coma_isearch(t_arr *fi, long i, long f, long mx)//lokinf atually for a place
 {
 	long k;
+	long mid;
+
 //if b[i] > all in A just Push? 0 moves//if k == fi->asz?
 	k = 0;
 	if (f == 1)//(mini > maxi)//(maxi > mini)
 	{
+		mid = 0;
 		while (k < fi->asz && fi->bst[i] < fi->ast[k])// && ++k)
 			++k;//for round s
 		while (k < fi->asz && fi->bst[i] > fi->ast[k])//if (fi->bst[i] > fi->ast[k])
 				++k;//till round circel circle
+		while (mid < fi->asz && fi->bst[i] < fi->ast[mid])//if round-> max in mid
+			++mid;//if its biggest -> its placi is in mid m->maxin
+		if (k == fi->asz)
+			return (mx);///-2);
 	}
 	else
 	{
@@ -123,34 +130,46 @@ long		coma_isearch(t_arr *fi, long i, long f)//lokinf atually for a place
 	}
 	return (k);
 }
-t_inst      *get_toplace(t_arr *fi, long i)
+void		save_op(t_op *ins, t_arr *fi,  long ink)
+{
+	if (ink <= fi->asz / 2)
+	{
+		if (ink < 0)
+			ins->asp = maxi
+	}
+}
+t_inst      *
+long		get_toplace(t_arr *fi, long i, t_op *ins)//find place & count operaa
 {
 	long j;//stack A
 	long maxi;
 	long mini;
-	long k;
+	long ink;//least/biggest in plain -> just PA 0op
 //detedting if stack A is tround or plain
 	maxi = get_imaxmin(fi->ast, fi->asz, 1);
 	mini = get_imaxmin(fi->ast, fi->asz, -1);
-	k = 0;
-	if (mini > maxi)//(maxi > mini)
-		k = coma_isearch(fi, i, 1);
-	else//prob rev ert
-		k = coma_isearch(fi, i, 0-1);
-	if (k <= fi->asz / 2)
-		while (++k <= i)
-			//com_fil(&com, RA, fi->bst[i]);
+	ink = mini > maxi ? coma_isearch(fi, i, 1, maxi) : coma_isearch(fi, i , 0-1, maxi);//if (mini > maxi)//(maxi > mini)
+//		ink = coma_isearch(fi, i, 1);//	else//prob rev ert//		ink = coma_isearch(fi, i, 0-1);
+	if (ink <= fi->asz / 2)
+	{//lest of all in circle?
+		ins->asp = /*ink < 0 ? maxi :*/ ink;//while (++k <= i)
+		ins->adir = RA;//com_fil(&com, RA, fi->bst[i]);
+	}
 	else
-		while (--k >= i)
-			//com_fil(&com, RRA, fi->bst[i]);
-	return (0);//
+	{//if predposl?
+	//	while (--ink >= i)
+		ins->adir = RRA;
+		ins->asp = ink == fi->asz ? 0 : ink;
+	}
+	return (ins->asp);//
 }
-t_op		*compute_path(t_arr *fi)//, t_op *com)//ins
+t_op		*compute_path(t_arr *fi, t_op ins)//, t_op *com)//ins
 {
-	t_op	p;
-	long	i;
-	t_op	min;//*min;
-	long	m;
+	t_op			p;
+	long			i;
+	unsigned long	min;//*min;
+	long			m;
+	t_op			ins;
 
 	i = 0;//way home - lol
 	i = -1;//exah each time save comline s//then free
@@ -159,12 +178,12 @@ t_op		*compute_path(t_arr *fi)//, t_op *com)//ins
 	//	com = 0;//saving minimalss
     	if (i == 0)//1)
 		{
-    		min = 0;//com;
-    		m = 0;//com->n;
+			min = 0;//com;
+			m = 0;//com->n;
 		}//get top place returns theminimal movemnts in A for B-el //up_st ret min-move for B to-ptop
-		get_toplace(fi, i);//init co here///last- PA
-		up_stack(fi, com, i);//filling the node with operations till up_Bstack
-    	free_lst(com);
+		get_toplace(fi, i, &ins);//init co here///last- PA
+		up_stack(fi, &ins, i);//filling the node with operations till up_Bstack
+	//	free_lst(ins);
 	}
 	return (min);
 }
@@ -192,18 +211,29 @@ t_op		*compute_path(t_arr *fi)//, t_op *com)//ins
 	}
 	return (h);
 }*/
+t_op		top_fil(t_op ins)
+{
+	ins.asp = -1;
+	ins.adir = -1;
+	ins.bdir = -1;
+	ins.bsp = -1;
+	ins.total = -1;
+	return (ins);
+}
 void		insort_(t_arr *fi)
 {
 	t_op	*com;
 //	t_inst	*path;
-	t_co	*ins;
+/*	t_co*/
+	t_op	path;
+	t_op	ins;
 
-	ins = 0;
+	ins = top_fil(ins);
 	com = 0;
 	while (fi->bsz)
 	{
 		print_arr_s(fi, "NEW");
-		path = compute_path(fi, com);//calc
+		path = compute_path(fi, ins);//calc
 		//exec(com, fi);//insertung//rotcir
 //		free_lst(path);//com);//&
 		break ;

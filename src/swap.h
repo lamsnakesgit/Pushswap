@@ -55,6 +55,7 @@ typedef	struct	s_op
 	long 		adir;
 	long 		bsp;
 	long		bdir;
+	long 		total;
 }				t_op;
 typedef	struct	s_inst
 {
