@@ -184,17 +184,19 @@ t_op		/**/compute_path(t_arr *fi, t_op ins)//, t_op *com)//ins
 	{
 	//	com = 0;//saving minimalss
     	if (i == 0)//1)
-		{
 			mins = ins;//com;
 	//		min = 0;//com->n;
-		}//get top place returns theminimal movemnts in A for B-el //up_st ret min-move for B to-ptop
+		//get top place returns theminimal movemnts in A for B-el //up_st ret min-move for B to-ptop
 		aop = get_toplace(fi, i, &ins);//init co here///last- PA
 		bop = up_stack(fi, &ins, i);//filling the node with operations till up_Bstack
 	//	free_lst(ins);
-		if (aop + bop + 1 < min)//s)
+		if ((ins.total = aop + bop + 1) < min)//s)
+		{
 			mins = ins;//aop;
+			min = aop + bop + 1;//
+		}
 	}
-	return (ins);//min);
+	return (mins);//(ins);//min);
 }
 
 t_op		top_fil(t_op ins)
@@ -246,13 +248,14 @@ void		insort_(t_arr *fi)
 	com = 0;
 	while (fi->bsz)
 	{
-		print_arr_s(fi, "NEW");
+	//	print_arr_s(fi, "NEW");
 		path = compute_path(fi, ins);//calc
 		execute(fi, path, -1);
 		//exec(com, fi);//insertung//rotcir
 //		free_lst(path);//com);//&
 	//	break ;
 	}
+	rstack(fi,)
 }
 /*t_co		*com_save(t_co **com, long ins)
 {
