@@ -98,10 +98,16 @@ long 		get_imaxmin(long *arr, long size, long f)
 	}
 	return (item);
 }
-long		coma(t_arr *fi, t_inst *com, long i, long f)
+/*
+ * 5 0
+ * 1 45
+ * 2
+ * 3
+ * */
+long		coma_isearch(t_arr *fi, long i, long f)//lokinf atually for a place
 {
 	long k;
-
+//if b[i] > all in A just Push? 0 moves//if k == fi->asz?
 	k = 0;
 	if (f == 1)//(mini > maxi)//(maxi > mini)
 	{
@@ -117,20 +123,20 @@ long		coma(t_arr *fi, t_inst *com, long i, long f)
 	}
 	return (k);
 }
-t_inst      *get_toplace(t_arr *fi, t_inst *com, long i)
+t_inst      *get_toplace(t_arr *fi, long i)
 {
 	long j;//stack A
 	long maxi;
 	long mini;
 	long k;
-
+//detedting if stack A is tround or plain
 	maxi = get_imaxmin(fi->ast, fi->asz, 1);
 	mini = get_imaxmin(fi->ast, fi->asz, -1);
 	k = 0;
 	if (mini > maxi)//(maxi > mini)
-		k = coma(fi, com, i, 1);
+		k = coma_isearch(fi, i, 1);
 	else//prob rev ert
-		k = coma(fi, com, i, 0-1);
+		k = coma_isearch(fi, i, 0-1);
 	if (k <= fi->asz / 2)
 		while (++k <= i)
 			//com_fil(&com, RA, fi->bst[i]);
@@ -139,31 +145,30 @@ t_inst      *get_toplace(t_arr *fi, t_inst *com, long i)
 			//com_fil(&com, RRA, fi->bst[i]);
 	return (0);//
 }
-t_inst		*compute_path(t_arr *fi, t_inst *com)//ins
+t_op		*compute_path(t_arr *fi)//, t_op *com)//ins
 {
-	t_inst	p;
+	t_op	p;
 	long	i;
-	t_inst	*min;
+	t_op	min;//*min;
 	long	m;
 
-	i = 0;
+	i = 0;//way home - lol
 	i = -1;//exah each time save comline s//then free
 	while (++i < fi->bsz)//collecting the path-ways and saving the minimum
 	{
-		com = 0;//saving minimalss
-    	com = com_fil(&com, 0, LOL);
+	//	com = 0;//saving minimalss
     	if (i == 0)//1)
 		{
-    		min = com;
-    		m = com->n;
-		}
-		get_toplace(fi, com, i);//init co here///last- PA
+    		min = 0;//com;
+    		m = 0;//com->n;
+		}//get top place returns theminimal movemnts in A for B-el //up_st ret min-move for B to-ptop
+		get_toplace(fi, i);//init co here///last- PA
 		up_stack(fi, com, i);//filling the node with operations till up_Bstack
     	free_lst(com);
 	}
 	return (min);
 }
-t_co		*com_save(t_co **com, long ins)
+/*t_co		*com_save(t_co **com, long ins)
 {
 	t_co *h;
 	t_co *tmp;
@@ -186,16 +191,15 @@ t_co		*com_save(t_co **com, long ins)
 		tmp->next = 0;
 	}
 	return (h);
-}
+}*/
 void		insort_(t_arr *fi)
 {
-	t_inst *com;
-	t_inst *path;
+	t_op	*com;
+//	t_inst	*path;
 	t_co	*ins;
 
 	ins = 0;
 	com = 0;
-	//com = com_fil(&com, 0, LOL);
 	while (fi->bsz)
 	{
 		print_arr_s(fi, "NEW");

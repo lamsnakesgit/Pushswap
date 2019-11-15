@@ -35,7 +35,9 @@
 
 typedef	struct	s_co
 {
-	int				op;
+	long			op;
+	long 			as;
+	long 			bs;
 	struct s_co		*next;
 }				t_co;
 
@@ -47,7 +49,13 @@ typedef	struct	s_arr
 	long			bsz;
 	long			alls;
 }				t_arr;
-
+typedef	struct	s_op
+{
+	long		asp;
+	long 		adir;
+	long 		bsp;
+	long		bdir;
+}				t_op;
 typedef	struct	s_inst
 {
 	long			co;
