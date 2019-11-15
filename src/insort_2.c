@@ -159,7 +159,7 @@ long		get_toplace(t_arr *fi, long i, t_op *ins)//find place & count operaa
 	{//if predposl?
 	//	while (--ink >= i)
 		ins->adir = RRA;
-		ins->asp = ink == fi->asz ? 0 : ink;
+		ins->asp = ink == fi->asz ? 0 : fi->asz - ink;
 	}
 	return (ins->asp);//
 }
