@@ -55,6 +55,8 @@ typedef	struct	s_op
 	long 		adir;
 	long 		bsp;
 	long		bdir;
+	long 		rr;
+	long 		rrr;
 	long 		total;
 }				t_op;
 typedef	struct	s_inst
@@ -75,7 +77,7 @@ void			ft_err(void);
 void			insort(t_arr *fi);
 long int		*parse_ar_inti(long int rg, char **av);
 int				check_dup(long int rc, long int *src);
-int				validate(int ac, char **av);
+int				validate(int ac, char **av, int i);
 int				print_com(int cm);
 
 long int		swap_i(long int *l, long int *b);
@@ -145,7 +147,15 @@ long			check_place(t_arr *fi);
 
 void		insort_(t_arr *fi);
 
-//int				rot_a(long **arr, long size, long mas);
+long		get_toplace(t_arr *fi, long i, t_op *ins);
+t_op		compute_path(t_arr *fi, t_op ins);
+void	execute(t_arr *fi, t_op ins, long i);
+
+t_op		top_fil(void);
+
+long		round_or_plain(t_arr *fi, long i);
+long		coma_isearch(t_arr *fi, long i, long f);
+long		get_imaxmin(long *arr, long size, long f, long tmp);
 
 
 #endif

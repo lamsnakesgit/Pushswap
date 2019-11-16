@@ -126,9 +126,7 @@ void		rstack(t_arr *fi, long n)
 		while (s && fi->ast[0] != min)
 		{
 			if (mar <= fi->asz / 2)
-			{
 				rot_a(&fi->ast, fi->asz, 1);
-			}
 			else
 			{
 				revrot(&fi->ast, fi->asz);

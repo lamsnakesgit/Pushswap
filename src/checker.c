@@ -42,7 +42,7 @@ t_inst		*command_s(void)
 	int		i;
 
 	com = 0;
-	i = 0;int fd = open("/Users/ddratini/42_03_projests/Push_swap/INSORT/t", O_RDONLY);//fd = 0;
+	i = 0;int fd = open("/Users/ddratini/42_03_projests/Push_swap/INSORT/t", O_RDONLY); //fd = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		in = compare(line);
@@ -118,7 +118,7 @@ int			main(int ac, char **av)
 			checkf(ac - 1, av + 1);
 		}
 		else if ((ac == 2 && !sp) || (ac > 2 && !sp))
-			if (validate(ac, av + 1))
+			if (validate(ac, av + 1, -1))
 			{
 				if (check_it(ac - 1, av + 1, &src) == -4)
 					ft_err();

@@ -43,7 +43,7 @@ int		main(int ac, char **av)
 			check_i(ac - 1, av + 1, +1);
 		}
 		else if ((ac == 2 && !sp) || (ac > 2 && !sp))
-			if (validate(ac, av + 1))
+			if (validate(ac, av + 1, -1))
 			{
 				if (ac == 2 && !ft_strchr(av[1], ' '))
 					exit(0);
