@@ -78,28 +78,34 @@ long 		get_imaxmin(long *arr, long size, long f)
 {
 	long i;
 	long item;//	long item;
-	long mnmx;
+	long tmp;
 
 	i = 0;
 	item = 0;
 	if (f > 0)
 	{
-		mnmx = arr[0];
+		tmp = arr[0];
 		while (++i < size)
 		{
-			if (arr[i] > mnmx)
+			if (arr[i] > tmp)//cop[mnmx])
+			{
 				item = i;
+				tmp = arr[i];
+			}
 		}
 	}
 	else
 	{
-		mnmx = arr[0];
+		tmp = arr[0];
 		while (++i < size)
 		{
-			if (arr[i] < mnmx)
-				mnmx = i;
+			if (arr[i] < tmp)//cop[mnmx])
+			{
+				item = i;
+				tmp = arr[i];
+			}
 		}
-		return (mnmx);
+	//	return (mnmx);
 	}
 	return (item);
 }
@@ -126,7 +132,7 @@ long		coma_isearch(t_arr *fi, long i, long f, long mx)//lokinf atually for a pla
 		while (mid < fi->asz && fi->bst[i] < fi->ast[mid])//if round-> max in mid
 			++mid;//if its biggest -> its placi is in mid m->maxin
 		if (k == fi->asz)
-			return (0);//mx);///-2);
+			return (-1);//(0);//mx);///-2);
 	}
 	else
 	{
@@ -144,17 +150,33 @@ long		coma_isearch(t_arr *fi, long i, long f, long mx)//lokinf atually for a pla
 	}
 }*/
 //t_inst      *
+long 		round_or_plain(t_arr *fi, long i)//, long maxi, long mini)
+{
+	long maxi;
+	long mini;
+	long ink;
+
+	maxi = get_imaxmin(fi->ast, fi->asz, 1);
+	mini = get_imaxmin(fi->ast, fi->asz, -1);
+	if (mini > maxi)
+		ink = coma_isearch(fi, i, 1, maxi);
+	else
+		ink = coma_isearch(fi, i, 0-1, maxi);
+	ink = ink < 0 ? /*mini*/0 : ink;
+	ink = fi->bst[i] < fi->ast[mini] || fi->bst[i] > fi->ast[maxi] ? mini : ink;
+	return (ink);
+}
 long		get_toplace(t_arr *fi, long i, t_op *ins)//find place & count operaa
 {
 	long j;//stack A
-	long maxi;
-	long mini;
 	long ink;//least/biggest in plain -> just PA 0op
 //detedting if stack A is tround or plain
-	maxi = get_imaxmin(fi->ast, fi->asz, 1);
-	mini = get_imaxmin(fi->ast, fi->asz, -1);
-	ink = mini > maxi ? coma_isearch(fi, i, 1, maxi) : coma_isearch(fi, i , 0-1, maxi);//if (mini > maxi)//(maxi > mini)
-//		ink = coma_isearch(fi, i, 1);//	else//prob rev ert//		ink = coma_isearch(fi, i, 0-1);
+
+	ink = round_or_plain(fi,i);
+	//mini > maxi ? coma_isearch(fi, i, 1, maxi) : coma_isearch(fi, i , 0-1, maxi);//if (mini > maxi)//(maxi > mini)
+	//ink = ink < 0 ? mini : ink;//for circlesd
+//	ink = (i < mini || i > maxi) ? mini : ink;
+	//		ink = coma_isearch(fi, i, 1);//	else//prob rev ert//		ink = coma_isearch(fi, i, 0-1);
 	if (ink <= fi->asz / 2)
 	{//lest of all in circle?
 		ins->asp = /*ink < 0 ? maxi :*/ ink;//while (++k <= i)
@@ -249,14 +271,16 @@ void		insort_(t_arr *fi)
 	com = 0;
 	while (fi->bsz)
 	{
-		print_arr_s(fi, "NEW");
+//		print_arr_s(fi, "NEW");
 		path = compute_path(fi, ins);//calc
 		execute(fi, path, -1);
 		//exec(com, fi);//insertung//rotcir
 //		free_lst(path);//com);//&
 	//	break ;
 	}
+//	print_arr_s(fi, "END");
 	rstack(fi, EMP);
+//	print_arr_s(fi, "ENN");
 }
 /*t_co		*com_save(t_co **com, long ins)
 {
