@@ -6,39 +6,11 @@
 /*   By: ddratini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 17:10:50 by ddratini          #+#    #+#             */
-/*   Updated: 2019/11/16 17:10:52 by ddratini         ###   ########.fr       */
+/*   Updated: 2019/11/16 19:12:28 by ddratini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "swap.h"
-
-/*
-** check stack_B leava acom// every element to get tot top
-** check every element how muchi tales to get up;
-**  every el's index --> amunt of rotations
-** *1 create first node and each time check len of list to cmpr w minimum
-** also save the n in node's
-** **2
-** while (--i - 1 > 0)//(++cnt < i - 1)//!?
-*/
-
-long		up_stack(t_arr *fi, t_op *ins, long i)
-{
-	long	cnt;
-
-	cnt = -1;
-	if (i <= fi->bsz / 2)
-	{
-		ins->bsp = i;
-		ins->bdir = RB;
-	}
-	else
-	{
-		ins->bsp = fi->bsz - i;
-		ins->bdir = RRB;
-	}
-	return (ins->bsp);
-}
 
 /*
 ** 5 0
@@ -52,41 +24,12 @@ long		up_stack(t_arr *fi, t_op *ins, long i)
 ** //for round s
 ** //till round circel circle
 ** third while//if round-> max in mid
-** 		//if its biggest -> its placi is in mid m->maxin
-**
-**
+** 		//if its biggest -> its placi is in mid m->maxin *****
 */
 
 /*
 **  //, long maxi, long mini)
 */
-
-/*
-** //find place & count operaa
-** //stack A //least/biggest in plain -> just PA 0op
-** //detedting if stack A is tround or plain
-** 	//ink = ink < 0 ? mini : ink;//for circlesd
-** 	//lest of all in circle?
-** 	//if predposl?
-*/
-
-long		get_toplace(t_arr *fi, long i, t_op *ins)
-{
-	long ink;
-
-	ink = round_or_plain(fi, i);
-	if (ink <= fi->asz / 2)
-	{
-		ins->asp = ink;
-		ins->adir = RA;
-	}
-	else
-	{
-		ins->adir = RRA;
-		ins->asp = ink == fi->asz ? 0 : fi->asz - ink;
-	}
-	return (ins->asp);
-}
 
 /*
 **	//way home - lol
@@ -124,7 +67,7 @@ t_op		compute_path(t_arr *fi, t_op ins)
 	return (mins);
 }
 
-int 		isoptim(t_op ins, t_arr *fi)
+int			isoptim(t_op ins, t_arr *fi)
 {
 	if (ins.rram > 0)
 	{
@@ -150,33 +93,32 @@ int 		isoptim(t_op ins, t_arr *fi)
 	}
 	return (0);
 }
+
 void		execute(t_arr *fi, t_op ins, long i)
 {
 	i = -1;
 	isoptim(ins, fi);
-//	print_arr_s(fi,"OPT");
-//	if (!isoptim(ins, fi))
-//	{
-		if (ins.adir == RA)
-			while (++i < ins.asp)
-				rot_a(&fi->ast, fi->asz, 1);
-		i = -1;
-		if (ins.adir == RRA)
-			while (++i < ins.asp) {
-				revrot(&fi->ast, fi->asz);
-				print_com(RRA);
-			}
-		i = -1;
-		if (ins.bdir == RB)
-			while (++i < ins.bsp)
-				rot_a(&fi->bst, fi->bsz, 2);
-		i = -1;
-		if (ins.bdir == RRB)
-			while (++i < ins.bsp) {
-				revrot(&fi->bst, fi->bsz);
-				print_com(RRB);
-			}
-//	}
+	if (ins.adr == RA)
+		while (++i < ins.asp)
+			rot_a(&fi->ast, fi->asz, 1);
+	i = -1;
+	if (ins.adr == RRA)
+		while (++i < ins.asp)
+		{
+			revrot(&fi->ast, fi->asz);
+			print_com(RRA);
+		}
+	i = -1;
+	if (ins.bdr == RB)
+		while (++i < ins.bsp)
+			rot_a(&fi->bst, fi->bsz, 2);
+	i = -1;
+	if (ins.bdr == RRB)
+		while (++i < ins.bsp)
+		{
+			revrot(&fi->bst, fi->bsz);
+			print_com(RRB);
+		}
 	push_b_r(&fi->bst, &fi->ast, &fi->bsz, &fi->asz);
 	print_com(PA);
 }
@@ -184,6 +126,7 @@ void		execute(t_arr *fi, t_op ins, long i)
 /*
 ** //exec(com, fi);//insertung//rotcir
 */
+
 t_op		optimise(t_op ins)
 {
 	long i;
@@ -191,24 +134,26 @@ t_op		optimise(t_op ins)
 
 	j = ins.bsp;
 	i = ins.asp;
-	if (ins.asp > 0 && ins.bsp > 0)
-		if ((ins.adir == RA && ins.bdir == RB) || (ins.adir == RRA && ins.bdir == RRA))
+	if (ins.asp <= 0 || ins.bsp <= 0)
+		return (ins);
+	if ((ins.adr == RA && ins.bdr == RB) || (ins.adr == RRA && ins.bdr == RRA))
+	{
+		while (i > 0 && j > 0)
 		{
-			while (i > 0 && j > 0)
-			{
-				--i;
-				--j;
-				if (ins.adir == RA)
-					++ins.rram;
-				else if(ins.adir == RRA)
-					++ins.rrram;
-				--ins.bsp;
-				--ins.asp;
-			}
-			return (ins);
+			--i;
+			--j;
+			if (ins.adr == RA)
+				++ins.rram;
+			else if (ins.adr == RRA)
+				++ins.rrram;
+			--ins.bsp;
+			--ins.asp;
 		}
+		return (ins);
+	}
 	return (ins);
 }
+
 void		insort_(t_arr *fi)
 {
 	t_op	path;
@@ -217,11 +162,9 @@ void		insort_(t_arr *fi)
 	ins = top_fil();
 	while (fi->bsz)
 	{
-	//	print_arr_s(fi, "NEW");
 		path = compute_path(fi, ins);
 		path = optimise(path);
 		execute(fi, path, -1);
 	}
-//	print_arr_s(fi, "END");
-	rstack(fi, EMP);//	print_arr_s(fi, "ENN");
+	rstack(fi, EMP);
 }

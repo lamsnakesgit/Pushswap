@@ -12,7 +12,7 @@
 
 #include "swap.h"
 
-t_inst		*com_fil(t_inst **com, long inst, long n)
+t_inst		*com_fil(t_inst **com, long inst)
 {
 	t_inst *tmp;
 	t_inst *h;
@@ -21,7 +21,6 @@ t_inst		*com_fil(t_inst **com, long inst, long n)
 	{
 		*com = (t_inst *)ft_memalloc(sizeof(t_inst ));
 		(*com)->co = inst;
-        (*com)->n = n;
 		(*com)->next = NULL;
 		h = *com;
 	}
@@ -34,7 +33,6 @@ t_inst		*com_fil(t_inst **com, long inst, long n)
 		tmp->next = ft_memalloc(sizeof(t_inst ));
 		tmp = tmp->next;
 		tmp->co = inst;
-		tmp->n = n;
 		tmp->next = NULL;
 	}
 	return (h);

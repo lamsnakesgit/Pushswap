@@ -52,9 +52,9 @@ typedef	struct	s_arr
 typedef	struct	s_op
 {
 	long		asp;
-	long 		adir;
+	long 		adr;
 	long 		bsp;
-	long		bdir;
+	long		bdr;
 	long 		rr;
 	long 		rram;
 	long 		rrr;
@@ -139,7 +139,7 @@ int				exec(t_inst *com, t_mas srt);
 long			corr_inst(t_inst *com);
 long			count_node(t_inst *com);
 void			free_lst(t_inst *com);
-t_inst			*com_fil(t_inst **com, long inst, long n);
+t_inst			*com_fil(t_inst **com, long ins);
 void			revstack(t_arr *fi, long n);
 
 long			b_check(t_arr *fi);
@@ -160,4 +160,8 @@ long		coma_isearch(t_arr *fi, long i, long f);
 long		get_imaxmin(long *arr, long size, long f, long tmp);
 
 int			ch_a(long *arr, long size);
+
+long		up_stack(t_arr *fi, t_op *ins, long i);
+
+
 #endif

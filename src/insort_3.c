@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "swap.h"
-
+/*
 long		find_p(t_arr *fi)
 {
 	long i;
@@ -20,7 +20,7 @@ long		find_p(t_arr *fi)
 	while (i < fi->asz && fi->bst[0] > fi->ast[i])
 		++i;
 	return (i);
-}
+}*/
 
 long		get_imaxmin(long *arr, long size, long f, long tmp)
 {
@@ -99,8 +99,8 @@ t_op		top_fil(void)
 	t_op ins;
 
 	ins.asp = -1;
-	ins.adir = -1;
-	ins.bdir = -1;
+	ins.adr = -1;
+	ins.bdr = -1;
 	ins.bsp = -1;
 	ins.total = -1;
 	ins.rr = 0;

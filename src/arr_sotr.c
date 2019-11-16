@@ -50,3 +50,58 @@ int			print_com(int cm)
 		write(1, "rrr\n", 4);
 	return (0);
 }
+
+/*
+** check stack_B leava acom// every element to get tot top
+** check every element how muchi tales to get up;
+**  every el's index --> amunt of rotations
+** *1 create first node and each time check len of list to cmpr w minimum
+** also save the n in node's
+** **2
+** while (--i - 1 > 0)//(++cnt < i - 1)//!?
+*/
+
+long		up_stack(t_arr *fi, t_op *ins, long i)
+{
+	long	cnt;
+
+	cnt = -1;
+	if (i <= fi->bsz / 2)
+	{
+		ins->bsp = i;
+		ins->bdr = RB;
+	}
+	else
+	{
+		ins->bsp = fi->bsz - i;
+		ins->bdr = RRB;
+	}
+	return (ins->bsp);
+}
+
+/*
+** //find place & count operaa
+** //stack A //least/biggest in plain -> just PA 0op
+** //detedting if stack A is tround or plain
+** 	//ink = ink < 0 ? mini : ink;//for circlesd
+** 	//lest of all in circle?
+** 	//if predposl?
+*/
+
+long		get_toplace(t_arr *fi, long i, t_op *ins)
+{
+	long ink;
+
+	ink = round_or_plain(fi, i);
+	if (ink <= fi->asz / 2)
+	{
+		ins->asp = ink;
+		ins->adr = RA;
+	}
+	else
+	{
+		ins->adr = RRA;
+		ins->asp = ink == fi->asz ? 0 : fi->asz - ink;
+	}
+	return (ins->asp);
+}

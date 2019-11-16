@@ -42,7 +42,7 @@ t_inst		*command_s(void)
 	int		i;
 
 	com = 0;
-	i = 0;int fd = open("/Users/ddratini/42_03_projests/Push_swap/INSORT/t", O_RDONLY); //fd = 0;
+	i = 0; int fd; fd = open("/Users/ddratini/42_03_projests/Push_swap/INSORT/t", O_RDONLY); //fd = 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		in = compare(line);
