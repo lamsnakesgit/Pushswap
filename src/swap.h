@@ -162,6 +162,8 @@ long		get_imaxmin(long *arr, long size, long f, long tmp);
 int			ch_a(long *arr, long size);
 
 long		up_stack(t_arr *fi, t_op *ins, long i);
-
+/*
+**  int fd; fd = open("/Users/ddratini/42_03_projests/Push_swap/INSORT/t", O_RDONLY); //fd = 0;
+*/
 
 #endif
