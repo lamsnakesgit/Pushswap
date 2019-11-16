@@ -36,8 +36,8 @@
 typedef	struct	s_co
 {
 	long			op;
-	long 			as;
-	long 			bs;
+	long			as;
+	long			bs;
 	struct s_co		*next;
 }				t_co;
 
@@ -52,19 +52,19 @@ typedef	struct	s_arr
 typedef	struct	s_op
 {
 	long		asp;
-	long 		adr;
-	long 		bsp;
+	long		adr;
+	long		bsp;
 	long		bdr;
-	long 		rr;
-	long 		rram;
-	long 		rrr;
-	long 		rrram;
-	long 		total;
+	long		rr;
+	long		rram;
+	long		rrr;
+	long		rrram;
+	long		total;
 }				t_op;
 typedef	struct	s_inst
 {
 	long			co;
-	long 			n;
+	long			n;
 	struct s_inst	*next;
 }				t_inst;
 
@@ -147,23 +147,25 @@ long			i_check(t_arr *fi, long i);
 long			find_p(t_arr *fi);
 long			check_place(t_arr *fi);
 
-void		insort_(t_arr *fi);
+void			insort_(t_arr *fi);
 
-long		get_toplace(t_arr *fi, long i, t_op *ins);
-t_op		compute_path(t_arr *fi, t_op ins);
-void	execute(t_arr *fi, t_op ins, long i);
+long			get_toplace(t_arr *fi, long i, t_op *ins);
+t_op			compute_path(t_arr *fi, t_op ins);
+void			execute(t_arr *fi, t_op ins, long i);
 
-t_op		top_fil(void);
+t_op			top_fil(void);
 
-long		round_or_plain(t_arr *fi, long i);
-long		coma_isearch(t_arr *fi, long i, long f);
-long		get_imaxmin(long *arr, long size, long f, long tmp);
+long			round_or_plain(t_arr *fi, long i);
+long			coma_isearch(t_arr *fi, long i, long f);
+long			get_imaxmin(long *arr, long size, long f, long tmp);
 
-int			ch_a(long *arr, long size);
+int				ch_a(long *arr, long size);
 
-long		up_stack(t_arr *fi, t_op *ins, long i);
+long			up_stack(t_arr *fi, t_op *ins, long i);
 /*
-**  int fd; fd = open("/Users/ddratini/42_03_projests/Push_swap/INSORT/t", O_RDONLY); //fd = 0;
+**  int fd;
+** fd = open("/Users/ddratini/42_03_projests/Push_swap/INSORT/t", O_RDONLY);
+** //fd = 0;
 */
 
 #endif
