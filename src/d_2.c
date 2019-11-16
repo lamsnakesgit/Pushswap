@@ -32,3 +32,23 @@ void		freec(t_arr *fi)
 	free((void *)(fi->bst));
 	free(fi);
 }
+
+int			wtf(long *src, long rg)
+{
+	long	j;
+	t_arr	*fi;
+
+	if (!(fi = init_date(src, rg)))
+		return (0);
+	j = isort(fi);
+	while (fi->asz > 3 && ((j = isort(fi)) == EMP || j == LOL))
+	{
+		push_b_r(&fi->ast, &fi->bst, &fi->asz, &fi->bsz);
+		print_com(PB);
+	}
+	if (fi->asz == 3)
+		ch_a(fi->ast, fi->asz);
+	insort_(fi);
+	freec(fi);
+	return (1);
+}

@@ -124,30 +124,59 @@ t_op		compute_path(t_arr *fi, t_op ins)
 	return (mins);
 }
 
+int 		isoptim(t_op ins, t_arr *fi)
+{
+	if (ins.rram > 0)
+	{
+		while (ins.rram > 0)
+		{
+			rot_a(&fi->bst, fi->bsz, 0);
+			rot_a(&fi->ast, fi->asz, 0);
+			print_com(RR);
+			--ins.rram;
+		}
+		return (1);
+	}
+	if (ins.rrram > 0)
+	{
+		while (ins.rrram > 0)
+		{
+			revrot(&fi->ast, fi->asz);
+			revrot(&fi->bst, fi->bsz);
+			print_com(RRR);
+			--ins.rrram;
+		}
+		return (2);
+	}
+	return (0);
+}
 void		execute(t_arr *fi, t_op ins, long i)
 {
 	i = -1;
-	if (ins.adir == RA)
-		while (++i < ins.asp)
-			rot_a(&fi->ast, fi->asz, 1);
-	i = -1;
-	if (ins.adir == RRA)
-		while (++i < ins.asp)
-		{
-			revrot(&fi->ast, fi->asz);
-			print_com(RRA);
-		}
-	i = -1;
-	if (ins.bdir == RB)
-		while (++i < ins.bsp)
-			rot_a(&fi->bst, fi->bsz, 2);
-	i = -1;
-	if (ins.bdir == RRB)
-		while (++i < ins.bsp)
-		{
-			revrot(&fi->bst, fi->bsz);
-			print_com(RRB);
-		}
+	isoptim(ins, fi);
+//	print_arr_s(fi,"OPT");
+//	if (!isoptim(ins, fi))
+//	{
+		if (ins.adir == RA)
+			while (++i < ins.asp)
+				rot_a(&fi->ast, fi->asz, 1);
+		i = -1;
+		if (ins.adir == RRA)
+			while (++i < ins.asp) {
+				revrot(&fi->ast, fi->asz);
+				print_com(RRA);
+			}
+		i = -1;
+		if (ins.bdir == RB)
+			while (++i < ins.bsp)
+				rot_a(&fi->bst, fi->bsz, 2);
+		i = -1;
+		if (ins.bdir == RRB)
+			while (++i < ins.bsp) {
+				revrot(&fi->bst, fi->bsz);
+				print_com(RRB);
+			}
+//	}
 	push_b_r(&fi->bst, &fi->ast, &fi->bsz, &fi->asz);
 	print_com(PA);
 }
@@ -155,7 +184,31 @@ void		execute(t_arr *fi, t_op ins, long i)
 /*
 ** //exec(com, fi);//insertung//rotcir
 */
+t_op		optimise(t_op ins)
+{
+	long i;
+	long j;
 
+	j = ins.bsp;
+	i = ins.asp;
+	if (ins.asp > 0 && ins.bsp > 0)
+		if ((ins.adir == RA && ins.bdir == RB) || (ins.adir == RRA && ins.bdir == RRA))
+		{
+			while (i > 0 && j > 0)
+			{
+				--i;
+				--j;
+				if (ins.adir == RA)
+					++ins.rram;
+				else if(ins.adir == RRA)
+					++ins.rrram;
+				--ins.bsp;
+				--ins.asp;
+			}
+			return (ins);
+		}
+	return (ins);
+}
 void		insort_(t_arr *fi)
 {
 	t_op	path;
@@ -164,8 +217,9 @@ void		insort_(t_arr *fi)
 	ins = top_fil();
 	while (fi->bsz)
 	{
-//		print_arr_s(fi, "NEW");
+	//	print_arr_s(fi, "NEW");
 		path = compute_path(fi, ins);
+		path = optimise(path);
 		execute(fi, path, -1);
 	}
 //	print_arr_s(fi, "END");

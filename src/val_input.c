@@ -38,11 +38,11 @@ int				check_dig(char *av, int fn)
 }
 
 int				validate(int ac, char **av, int i)
-{//	int		i;
+{
 	int		j;
 	long	fn;
 	size_t	len;
-//	i = -1;
+
 	while (av[++i] && i < ac - 1)
 	{
 		fn = 0;
@@ -52,10 +52,10 @@ int				validate(int ac, char **av, int i)
 		if ((len = ft_strlen(av[i])) > 11 || (len > 10 && !fn))
 			ft_err();
 		while (av[i][++j])
-		{	//	if (!ft_isdigit()av[i][j])
+		{
 			if (fn && !j)
 				++j;
-			if (!ft_isdigit(av[i][j]))//++-
+			if (!ft_isdigit(av[i][j]))
 				ft_err();
 			if (!valsp(av[i] + j, &fn))
 				ft_err();

@@ -66,7 +66,6 @@ long int	isort(t_arr *fi)
 
 	n = 0;
 	i = 0;
-	//s = 0;
 	while (++i < fi->asz)
 	{
 		if (fi->ast[i - 1] > fi->ast[i])
@@ -80,34 +79,34 @@ long int	isort(t_arr *fi)
 		return (LOL);
 	return (s);
 }
+
 void		revstack(t_arr *fi, long n)
 {
 	long sv;
 	long mar;
 	long ru;
-	//if (issorted(fi->ast, fi->asz) == LOL)//dessoert
-	//s = desort?
+
 	ru = 0;
-	while (n > fi->ast[ru])//find pos till rra
+	while (n > fi->ast[ru])
 		++ru;
 	mar = isort(fi);
 	if (mar != EMP && mar != LOL)
 	{
 		sv = fi->ast[ru];
 		--ru;
-		while (mar && fi->ast[0] != sv)//fi->ast[fi->asz - 1] != fi->ast[ru])//
+		while (mar && fi->ast[0] != sv)
 		{
-			if (ru <= fi->asz / 2)//(mar <= fi->asz / 2)
+			if (ru <= fi->asz / 2)
 			{
 				revrot(&fi->ast, fi->asz);
 				print_com(RRA);
 			}
 			else
 				rot_a(&fi->ast, fi->asz, 1);
-			//break ;///////////////////////////////
 		}
 	}
 }
+
 void		rstack(t_arr *fi, long n)
 {
 	long s;
@@ -116,8 +115,8 @@ void		rstack(t_arr *fi, long n)
 
 	if (n < fi->ast[fi->asz - 1] && issorted(fi->ast, fi->asz) == LOL)
 		return ;
-	if (n != EMP)// fi->ast[fi->asz - 1])
-		revstack(fi, n);//
+	if (n != EMP)
+		revstack(fi, n);
 	s = isort(fi);
 	if (s != EMP && s != LOL)
 	{
@@ -134,28 +133,4 @@ void		rstack(t_arr *fi, long n)
 			}
 		}
 	}
-}
-
-int			wtf(long *src, long rg)
-{
-	long	j;
-	t_arr	*fi;
-
-	if (!(fi = init_date(src, rg)))
-		return (0);
-	j = isort(fi);
-	while (fi->asz > 3 && ((j = isort(fi)) == EMP || j == LOL))
-	{
-		push_b_r(&fi->ast, &fi->bst, &fi->asz, &fi->bsz);
-		print_com(PB);
-	}
-	//print_arr_s(fi, "BFP3");
-	if (fi->asz == 3)
-		ch_a(fi->ast, fi->asz);
-/*	if (j != LOL)
-		rstack(fi, -40444444);
-*/	//insort(fi);
-	insort_(fi);
-	freec(fi);
-	return (1);
 }

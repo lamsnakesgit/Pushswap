@@ -103,7 +103,9 @@ t_op		top_fil(void)
 	ins.bdir = -1;
 	ins.bsp = -1;
 	ins.total = -1;
-	ins.rr = -1;
-	ins.rrr = -1;
+	ins.rr = 0;
+	ins.rrr = 0;
+	ins.rram = 0;
+	ins.rrram = 0;
 	return (ins);
 }

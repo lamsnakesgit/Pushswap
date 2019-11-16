@@ -56,7 +56,9 @@ typedef	struct	s_op
 	long 		bsp;
 	long		bdir;
 	long 		rr;
+	long 		rram;
 	long 		rrr;
+	long 		rrram;
 	long 		total;
 }				t_op;
 typedef	struct	s_inst
@@ -157,5 +159,5 @@ long		round_or_plain(t_arr *fi, long i);
 long		coma_isearch(t_arr *fi, long i, long f);
 long		get_imaxmin(long *arr, long size, long f, long tmp);
 
-
+int			ch_a(long *arr, long size);
 #endif
