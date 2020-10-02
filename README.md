@@ -1,4 +1,4 @@
-# Pushswap
+# Push_swap
 Project in 21 school curriculum. Objective: to sort given array using two stacks and specified operations.
 
 Summary:
