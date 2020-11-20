@@ -23,3 +23,6 @@ Algorithm:
   7.3 Add these two values. That's how you get the cost of the operation for the element on each cycle.
 7.4 During every cycle you compute the cost of all elements in stack B and choose the "cheapest" one and conduct the set of operations with least actions.
 7.5 The stack A is sorted! You're wonderful!
+
+One of the possible solutions:
+https://medium.com/@jamierobertdawson/push-swap-the-least-amount-of-moves-with-two-stacks-d1e76a71789a
