@@ -1,7 +1,7 @@
 # Push_swap
 Project in ecole 42curriculum. Objective: to sort given array using two stacks and specified operations.
 
-Technical brief (https://cdn.intra.42.fr/pdf/pdf/36359/en.subject.pdf)
+[Technical brief] (https://cdn.intra.42.fr/pdf/pdf/36359/en.subject.pdf)
 Summary:
 This project will make you sort data on a stack, with a limited set of instructions, using
 the lowest possible number of actions. To succeed you’ll have to manipulate various
